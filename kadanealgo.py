@@ -25,18 +25,25 @@
 # Explanation:
 # Testcase 1: Max subarray sum is 9 of elements (1, 2, 3, -2, 5) which is a contiguous subarray.
 
+# -10 8 1 5 12 -4 1 2
+# -10 8 1 5 12 -40 1 2
+
 if __name__ == "__main__":
     num_input = int(input())
-    s = []
+    curr_sum = max_sum = startIndex = endIndex = 0
     for i in range(num_input):
         x = int(input())
         arr = list(map(int, input().split(" ")))
-        s.append(arr[0])
         for i in range(len(arr)):
-            x = s[-1] + arr[i]
-            s.append(x)
-        index = s.index(max(s))
-        for i in range(len(arr)):
-            if i > index:
-                break
-            print(arr[i], end=", ")
+            curr_sum = curr_sum + arr[i]
+            if curr_sum < 0:
+                curr_sum = 0
+                if i is not len(arr)-1:
+                    startIndex = i+1
+            if curr_sum > max_sum:
+                max_sum = curr_sum
+                endIndex = i
+        print(arr[startIndex], arr[endIndex])
+        
+            
+            
