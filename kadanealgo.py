@@ -44,6 +44,5 @@ if __name__ == "__main__":
                 max_sum = curr_sum
                 endIndex = i
         print(arr[startIndex], arr[endIndex])
+
         
-            
-            
