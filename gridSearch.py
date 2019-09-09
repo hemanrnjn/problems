@@ -8,25 +8,41 @@ import sys
 
 # Complete the gridSearch function below.
 def gridSearch(G, P):
-    pValIndex = 0       
-    fromIndex = -1
     for index, gVal in enumerate(G):
-        print(index, gVal, pValIndex)
-        found = gVal.find(P[pValIndex])
-        if found != -1:
-            if fromIndex != -1:
-                print(gVal[fromIndex:fromIndex+len(P[0])], P[pValIndex])
-                if gVal[fromIndex:fromIndex+len(P[0])] != P[pValIndex]:
-                    return "NO"
-            else:
-                fromIndex = found
-            if pValIndex == len(P)-1:
-                return "YES"
-            else:
-                pValIndex += 1
-        else:
-            if len(G)-index == len(P):
-                return "NO"
+        if len(G)-(index+1) < len(P):
+            return "NO"
+        pIndex = 0
+        found = [[x.start(), x.end()] for x in re.finditer(P[pIndex], gVal)]
+        if len(found) != 0:
+            for val in found:
+                lst = [G[index][val[0]:val[1]]]
+                for i in range(len(P) - 1):
+                    lst.append(G[index+i+1][val[0]:val[1]])
+                if lst == P:
+                    return "YES"
+            pIndex += 1
+
+    # pValIndex = 0       
+    # fromIndex = -1
+    # for index, gVal in enumerate(G):
+    #     print(index, gVal, pValIndex)
+    #     found = gVal.find(P[pValIndex])
+    #     if found != -1:
+    #         if fromIndex != -1:
+    #             print(gVal[fromIndex:fromIndex+len(P[0])], P[pValIndex])
+    #             if gVal[fromIndex:fromIndex+len(P[0])] != P[pValIndex]:
+    #                 if len(G)-index == len(P):
+    #                     return "NO"
+    #                 continue
+    #         else:
+    #             fromIndex = found
+    #         if pValIndex == len(P)-1:
+    #             return "YES"
+    #         else:
+    #             pValIndex += 1
+    #     else:
+    #         if len(G)-index < len(P):
+    #             return "NO"
 
 
 
