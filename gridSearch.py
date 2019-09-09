@@ -9,10 +9,12 @@ import sys
 # Complete the gridSearch function below.
 def gridSearch(G, P):
     for index, gVal in enumerate(G):
-        if len(G)-(index+1) < len(P):
+        if (len(G)-index) < len(P):
             return "NO"
         pIndex = 0
-        found = [[x.start(), x.end()] for x in re.finditer(P[pIndex], gVal)]
+        found = [[i, i+len(P[0])] for i in range(len(gVal)) if gVal.startswith(P[pIndex], i)]
+        # found = [[x.start(), x.end()] for x in re.finditer(P[pIndex], gVal)]
+        print(found)
         if len(found) != 0:
             for val in found:
                 lst = [G[index][val[0]:val[1]]]
