@@ -8,24 +8,27 @@ import sys
 
 # Complete the happyLadybugs function below.
 def happyLadybugs(b):
-    s = ''.join(sorted(b))
-    dct = {}
+    dct = dict()
     prev = ''
-    for ch in s:
+    flag = False
+    for ch in b:
         if ch in dct:
             dct[ch] += 1
+            if ch != prev:
+                flag = True
         else:
             dct[ch] = 1
-            if prev != '' and ord(prev) != ord('_') and dct[prev] < 2:
-                return "NO"
             prev = ch
-    if len(dct) > 0 and ord(prev) != ord('_') and dct[prev] < 2:
-        return "NO"
+    for x, v in dct.items():
+        if v < 2 and ord(x) != ord('_'):
+            return "NO"
+    if flag == False:
+        return "YES"
     if '_' in dct:
         return "YES"
     else:
         return "NO"
-
+        
 
 
 if __name__ == '__main__':
