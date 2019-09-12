@@ -7,11 +7,40 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"math"
 )
 
 // Complete the surfaceArea function below.
 func surfaceArea(A [][]int32) int32 {
+	var prev int32 = 0
+	var total int32 = 0
+	var sideTotal int32 = 0
+	var btmTotal int32 = 0
+	side := make([]int32, len(A[0]))
+	for i := range A {
+		for j := range A[i] {
+			if A[i][j] != 0 {
+				btmTotal += 1
+			}
+			if j == len(A[i])-1 {
+				total = total + int32(math.Abs(float64(A[i][j])-float64(prev))) + 1 + A[i][j]
+			} else if j == 0 {
+				total = total + A[i][j] + 1
+				prev = A[i][j]
+			} else {
+				total = total + int32(math.Abs(float64(A[i][j])-float64(prev))) + 1
+				prev = A[i][j]
+			}
 
+			if i == len(A)-1 {
+				sideTotal = sideTotal + int32(math.Abs(float64(A[i][j])-float64(side[j]))) + A[i][j]
+			} else {
+				sideTotal = sideTotal + int32(math.Abs(float64(A[i][j])-float64(side[j])))
+			}
+		}
+		side = A[i]
+	}
+	return total+sideTotal+btmTotal
 }
 
 func main() {
